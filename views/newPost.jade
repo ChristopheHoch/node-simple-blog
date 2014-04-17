@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    form(action='/post', method='POST', class="form-horizontal")
+    form(id="newPost", action='/post', method='POST', class="form-horizontal")
         div(class="form-group")
             label(for='title', class="col-sm-1 control-label") Title
             div(class="col-sm-8")

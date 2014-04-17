@@ -1,7 +1,5 @@
 
-/**
- * Module dependencies.
- */
+/* global console, require, process, __dirname */
 
 var express = require('express'),
     mongoose = require('mongoose'),
@@ -17,15 +15,24 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.cookieParser());
+app.use(express.session({ secret: 'Do not panick' }));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
+app.use(express.csrf());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
+}
+
+// CSRF middleware
+function csrf(req, res, next) {
+  res.locals.token = req.session._csrf;
+  next();
 }
 
 // Connect to the database
@@ -37,7 +44,7 @@ app.get('/post', post.findAll);
 app.get('/post/new', post.new);
 app.get('/post/:id', post.find);
 
-app.post('/post', post.create);
+app.post('/post', csrf, post.create);
 
 
 http.createServer(app).listen(app.get('port'), function(){
