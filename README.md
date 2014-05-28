@@ -1,6 +1,6 @@
 # node-simple-blog
 
-Atelier organisé à [Norsys][1] ayant pour but de créer un blog en utilisant Node.js, Express 3 et MongoDB. Le projet contient [une ébauche de correction][2].
+Atelier organisé à [Norsys][1] ayant pour but de créer un blog en utilisant Node.js, Express 3 et MongoDB.
 
 ## 1. Hello Express!
 La première étape consiste à installer Express.js globalement sur le système puis de s'en servir pour générer un squelette d'application node.js.
@@ -16,7 +16,7 @@ Une fois ceci fait il suffit de lancer la commande suivant pour démarrer un ser
 node app
 ```
 
-Par défaut, Express est configuré pour utilisé le port 3000. L'application que vous venez de démarrer est accessible l'adresse suivante: [localhost:3000][3]
+Par défaut, Express est configuré pour utilisé le port 3000. L'application que vous venez de démarrer est accessible l'adresse suivante: [localhost:3000][2]
 
 ### 1.1. Que mon serveur s'exécute pour toujours...
 Un outil supplémentaire peut être installé pour surveiller tout changement dans les fichiers du projet et redémarrer automatiquement le serveur pour les appliquer.
@@ -30,9 +30,9 @@ nodemon app
 ```
 
 ## 2. Configurer le modèle de donnée
-La base de donnée que nous allons utiliser pour cet atelier est MongoDB. Afin d'en simplifier l'utilisation, nous allons utiliser [Mongoose][4].
+La base de donnée que nous allons utiliser pour cet atelier est MongoDB. Afin d'en simplifier l'utilisation, nous allons utiliser [Mongoose][3].
 
-1. Utilisez [la documentation rapide][5] pour connecter votre serveur node à votre base de donnée.
+1. Utilisez [la documentation rapide][4] pour connecter votre serveur node à votre base de donnée.
 2. Créez un modèle de donnée simple pour contenir les données d'un billet de blog. Un billet contient au minimum un titre et un contenu.
 
 ## 3. Créer un billet
@@ -50,7 +50,7 @@ app.post('/post', function(req, res) {
 2. Persistez cet objet en base et renvoyez l'objet ainsi créé en réponse à la requête
 
 ## 4. Afficher la liste des billets
-Maintenant que nous avons des billets dans la base de donnée, il ne reste qu'à les afficher sur la page principale. Pour cela, nous allons utiliser les possibilités du langage de template [jade][6], utilisé par défaut avec Express
+Maintenant que nous avons des billets dans la base de donnée, il ne reste qu'à les afficher sur la page principale. Pour cela, nous allons utiliser les possibilités du langage de template [jade][5], utilisé par défaut avec Express
 
 1. Modifiez la route `GET /` pour renvoyer tous les billets du blog dans un objet JSON.
 2. Modifiez la vue _index.jade_ pour afficher la liste des billets. Vous aurez à utiliser l'instruction `each` de jade.
@@ -74,8 +74,7 @@ Créez une page permettant de mettre à jour un billet existant. Encore une fois
 Ajoutez un lien permettant de supprimer un billet existant.
 
 [1]: http://www.norsys.fr/
-[2]: https://github.com/ChristopheHoch/node-simple-blog.git
-[3]: http://localhost:3000
-[4]: http://mongoosejs.com/
-[5]: http://mongoosejs.com/docs/index.html
-[6]: http://jade-lang.com/
+[2]: http://localhost:3000
+[3]: http://mongoosejs.com/
+[4]: http://mongoosejs.com/docs/index.html
+[5]: http://jade-lang.com/
