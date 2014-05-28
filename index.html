@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>node-simple-blog by ChristopheHoch</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>node-simple-blog</h1>
+        <p>Simple blog créé avec Node.js, Express et MongoDB</p>
+
+        <p class="view"><a href="https://github.com/ChristopheHoch/node-simple-blog">View the Project on GitHub <small>ChristopheHoch/node-simple-blog</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/ChristopheHoch/node-simple-blog/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/ChristopheHoch/node-simple-blog/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/ChristopheHoch/node-simple-blog">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>Atelier organisé à <a href="http://www.norsys.fr/">Norsys</a> ayant pour but de créer un blog en utilisant Node.js, Express 3 et MongoDB. Le projet contient <a href="https://github.com/ChristopheHoch/node-simple-blog.git">une ébauche de correction</a>.</p>
+
+<h2>
+<a name="1-hello-express" class="anchor" href="#1-hello-express"><span class="octicon octicon-link"></span></a>1. Hello Express!</h2>
+
+<p>La première étape consiste à installer Express.js globalement sur le système puis de s'en servir pour générer un squelette d'application node.js.</p>
+
+<pre><code>npm install -g express@3.4.8
+express simple-blog
+cd simple-blog
+npm install
+</code></pre>
+
+<p>Une fois ceci fait il suffit de lancer la commande suivant pour démarrer un serveur:</p>
+
+<pre><code>node app
+</code></pre>
+
+<p>Par défaut, Express est configuré pour utilisé le port 3000. L'application que vous venez de démarrer est accessible l'adresse suivante: <a href="http://localhost:3000">localhost:3000</a></p>
+
+<h3>
+<a name="11-que-mon-serveur-sex%C3%A9cute-pour-toujours" class="anchor" href="#11-que-mon-serveur-sex%C3%A9cute-pour-toujours"><span class="octicon octicon-link"></span></a>1.1. Que mon serveur s'exécute pour toujours...</h3>
+
+<p>Un outil supplémentaire peut être installé pour surveiller tout changement dans les fichiers du projet et redémarrer automatiquement le serveur pour les appliquer.</p>
+
+<pre><code>npm install -g nodemon
+</code></pre>
+
+<p>Pour utiliser cet outil, il suffit de démarrer le serveur avec la ligne suivante:</p>
+
+<pre><code>nodemon app
+</code></pre>
+
+<h2>
+<a name="2-configurer-le-mod%C3%A8le-de-donn%C3%A9e" class="anchor" href="#2-configurer-le-mod%C3%A8le-de-donn%C3%A9e"><span class="octicon octicon-link"></span></a>2. Configurer le modèle de donnée</h2>
+
+<p>La base de donnée que nous allons utiliser pour cet atelier est MongoDB. Afin d'en simplifier l'utilisation, nous allons utiliser <a href="http://mongoosejs.com/">Mongoose</a>.</p>
+
+<ol>
+<li>Utilisez <a href="http://mongoosejs.com/docs/index.html">la documentation rapide</a> pour connecter votre serveur node à votre base de donnée.</li>
+<li>Créez un modèle de donnée simple pour contenir les données d'un billet de blog. Un billet contient au minimum un titre et un contenu.</li>
+</ol><h2>
+<a name="3-cr%C3%A9er-un-billet" class="anchor" href="#3-cr%C3%A9er-un-billet"><span class="octicon octicon-link"></span></a>3. Créer un billet</h2>
+
+<p>Nous allons ici créer une route dans Express répondant aux requêtes de type <code>POST /post</code> permettant de créer un nouveau billet et de le persister en base.</p>
+
+<p>Les routes se définissent très simplement dans express grâce à une fonction qui prend le nom de la methode http souhaitée:</p>
+
+<pre><code>app.post('/post', function(req, res) {
+    // Insérer votre code ici
+
+});
+</code></pre>
+
+<ol>
+<li>Récupérez les données dans le corps de la requête POST (req.body) pour créer un nouvel objet Billet.</li>
+<li>Persistez cet objet en base et renvoyez l'objet ainsi créé en réponse à la requête</li>
+</ol><h2>
+<a name="4-afficher-la-liste-des-billets" class="anchor" href="#4-afficher-la-liste-des-billets"><span class="octicon octicon-link"></span></a>4. Afficher la liste des billets</h2>
+
+<p>Maintenant que nous avons des billets dans la base de donnée, il ne reste qu'à les afficher sur la page principale. Pour cela, nous allons utiliser les possibilités du langage de template <a href="http://jade-lang.com/">jade</a>, utilisé par défaut avec Express</p>
+
+<ol>
+<li>Modifiez la route <code>GET /</code> pour renvoyer tous les billets du blog dans un objet JSON.</li>
+<li>Modifiez la vue <em>index.jade</em> pour afficher la liste des billets. Vous aurez à utiliser l'instruction <code>each</code> de jade.</li>
+</ol><h2>
+<a name="5-afficher-un-billet" class="anchor" href="#5-afficher-un-billet"><span class="octicon octicon-link"></span></a>5. Afficher un billet</h2>
+
+<p>La prochaine étape est de permettre l'affichage d'un billet du blog en particulier à partir de la page principale.</p>
+
+<ol>
+<li>Créez une route <code>GET /:id</code> et utilisez l'<em>id</em> en paramètre pour rechercher le billet dans la base. Vous pouvez utiliser la fonction <code>findById</code> de Mongoose. La route doit renvoyer vers un nouveau template <em>post.jade</em> qui servira a afficher le billet.</li>
+<li>Modifiez la page principale pour associer un lien vers la route créé pour chacun des billet affiché.</li>
+</ol><h2>
+<a name="6-cr%C3%A9er-un-billet-bis" class="anchor" href="#6-cr%C3%A9er-un-billet-bis"><span class="octicon octicon-link"></span></a>6. Créer un billet (bis)</h2>
+
+<p>Maintenant que l'affichage des billets est fonctionnel, il est temps de créer un page permettant de créer un billet sans avoir à passer par une API REST.</p>
+
+<ol>
+<li>Créez une nouvelle page avec un formulaire permettant la création de billet et utilisant la route existante <code>POST /post</code>.</li>
+<li>Modifiez la route <code>POST /post</code> pour retourner la page affichant le bille nouvellement créé.</li>
+</ol><h2>
+<a name="7-mettre-%C3%A0-jour-un-billet-bonus" class="anchor" href="#7-mettre-%C3%A0-jour-un-billet-bonus"><span class="octicon octicon-link"></span></a>7. Mettre à jour un billet (BONUS)</h2>
+
+<p>Créez une page permettant de mettre à jour un billet existant. Encore une fois, Mongoose fourni une fonction permettant de simplifier la tache: <code>findByIdAndUpdate</code>.</p>
+
+<h2>
+<a name="8-supprimer-un-billet-bonus" class="anchor" href="#8-supprimer-un-billet-bonus"><span class="octicon octicon-link"></span></a>8. Supprimer un billet (BONUS)</h2>
+
+<p>Ajoutez un lien permettant de supprimer un billet existant.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/ChristopheHoch">ChristopheHoch</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
